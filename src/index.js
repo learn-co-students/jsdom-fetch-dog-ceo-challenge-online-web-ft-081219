@@ -31,11 +31,13 @@ document.addEventListener("DOMContentLoaded", function() {
   fetchBreeds()
 })
 
-function filterBreed() {
+function filterBreed(letter) {
   const ul = document.getElementById('dog-breeds')
   removeChildren(ul)
+  
   breeds.forEach(breed => addBreed(breed));
 }
+
 
 function addBreed(breed) {
   const ul = document.getElementById('dog-breeds')
