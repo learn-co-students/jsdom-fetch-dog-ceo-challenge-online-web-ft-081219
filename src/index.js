@@ -13,6 +13,8 @@ function talkToImagesApi() {
 }
 
 function getImages(json) {
+  // iterate over json image urls
+  // for each one create a new image, and append to body
   for (let i=0; i<json.message.length; i++) {
     const newImage = document.createElement('img');
     newImage.src = json.message[i];
@@ -27,6 +29,9 @@ function talkToBreedsApi() {
 }
 
 function getDogBreeds(json) {
+  // format is an object with keys as basic breed name, and values to those keys that are each an array of adjectives appended to basic breed
+  // if there are adjectives, add them to nameArray with adjective pushed in front of name
+  // for all elements in nameArray, make them able to change color, and append them
   let nameArray = [];
   const breedList = document.getElementById('dog-breeds');
   for (const name in json) {
@@ -62,12 +67,16 @@ function addFilter() {
   const holderArray = [];
   dropDown.addEventListener('change', function() {
 
+    // reinirialize the UL on the page by adding everything inside holderArray
     for (let i=0; i<holderArray.length; i++){
       breedList.appendChild(holderArray[i]);
     }
 
+    // reset holderArray
     holderArray.length=0;
 
+    // iterate through children in UL - if doesn't match filter, push to holderArray
+    // don't delete immediately - will affect the COUNT by [i]
     for (let i=0; i<breedList.childElementCount; i++) {
       let thisChild = breedList.children[i]
       if (!thisChild.innerText.startsWith(dropDown.value)) {
@@ -75,6 +84,7 @@ function addFilter() {
       }
     }
 
+    // remove all children that are in the holderArray
     for (let i=0; i<holderArray.length; i++) {
       breedList.removeChild(holderArray[i]);
     }
